@@ -108,7 +108,7 @@ style.textContent = `
 document.head.appendChild(style);
 
 // ===== 打字效果 =====
-const titleElement = document.querySelector('.title');
+const typingTextElement = document.getElementById('typing-text');
 const titles = ['AI产品经理', 'AIGC专家', 'RTC架构师', '数据驱动决策'];
 let titleIndex = 0;
 let charIndex = 0;
@@ -119,11 +119,11 @@ function typeTitle() {
     const currentTitle = titles[titleIndex];
 
     if (isDeleting) {
-        titleElement.textContent = currentTitle.substring(0, charIndex - 1);
+        typingTextElement.textContent = currentTitle.substring(0, charIndex - 1);
         charIndex--;
         typingSpeed = 50;
     } else {
-        titleElement.textContent = currentTitle.substring(0, charIndex + 1);
+        typingTextElement.textContent = currentTitle.substring(0, charIndex + 1);
         charIndex++;
         typingSpeed = 100;
     }
