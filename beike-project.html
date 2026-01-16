@@ -228,23 +228,74 @@
             border-radius: 10px;
         }
 
-        .document-item a {
-            padding: 0.5rem 1rem;
-            background: var(--accent-primary);
-            color: var(--bg-primary);
-            text-decoration: none;
-            border-radius: 5px;
-            font-size: 0.85rem;
+        .image-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .gallery-item {
+            background: rgba(0, 240, 255, 0.05);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            overflow: hidden;
             transition: all 0.3s;
         }
 
-        .document-item a:hover {
+        .gallery-item:hover {
+            border-color: var(--accent-primary);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 240, 255, 0.15);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: transform 0.3s;
+        }
+
+        .gallery-item:hover img {
             transform: scale(1.05);
-            box-shadow: 0 5px 15px rgba(0, 240, 255, 0.3);
+        }
+
+        .gallery-item .gallery-caption {
+            padding: 1rem;
+            background: var(--bg-card);
+        }
+
+        .gallery-item .gallery-caption h4 {
+            color: var(--accent-primary);
+            font-size: 1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .gallery-item .gallery-caption p {
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+            margin: 0;
+        }
+
+        .gallery-section {
+            margin: 3rem 0;
+        }
+
+        .gallery-section h3 {
+            color: var(--accent-primary);
+            font-size: 1.3rem;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
         }
 
         @media (max-width: 768px) {
             .achievement-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .image-gallery {
                 grid-template-columns: 1fr;
             }
         }
@@ -369,174 +420,92 @@
             </div>
         </div>
 
-        <!-- 项目文档 -->
+        <!-- 项目展示 -->
         <div class="detail-section">
-            <h2><i class="fas fa-file-pdf"></i> 项目文档</h2>
-            <p>点击下方链接查看各期详细的产品需求文档（PRD）：</p>
+            <h2><i class="fas fa-images"></i> 项目展示</h2>
+            <p>以下为各期项目的核心功能界面展示：</p>
 
-            <div class="document-list">
-                <!-- 一期文档 -->
-                <div class="document-item">
-                    <div class="doc-info">
-                        <i class="fas fa-file-pdf doc-icon"></i>
-                        <div>
-                            <div class="doc-title">二手行业指数管理一期 - 南京</div>
-                            <span class="doc-phase">一期</span>
+            <!-- 一期展示 -->
+            <div class="gallery-section">
+                <h3><i class="fas fa-rocket"></i> 一期 - 基础数据管理</h3>
+                <div class="image-gallery">
+                    <div class="gallery-item">
+                        <img src="images/beike/一期-南京_page1.png" alt="一期界面展示1">
+                        <div class="gallery-caption">
+                            <h4>南京指数管理</h4>
+                            <p>建立二手行业指数管理的基础后台系统</p>
                         </div>
                     </div>
-                    <a href="贝壳/一期/二手行业指数管理一期-南京.pdf" target="_blank">
-                        <i class="fas fa-download"></i> 查看
-                    </a>
-                </div>
-                <div class="document-item">
-                    <div class="doc-info">
-                        <i class="fas fa-file-pdf doc-icon"></i>
-                        <div>
-                            <div class="doc-title">二手行业指数管理后台一期</div>
-                            <span class="doc-phase">一期</span>
+                    <div class="gallery-item">
+                        <img src="images/beike/一期-南京_page2.png" alt="一期界面展示2">
+                        <div class="gallery-caption">
+                            <h4>数据采集与展示</h4>
+                            <p>搭建数据采集与展示框架</p>
                         </div>
                     </div>
-                    <a href="贝壳/一期/二手行业指数管理后台一期.pdf" target="_blank">
-                        <i class="fas fa-download"></i> 查看
-                    </a>
                 </div>
+            </div>
 
-                <!-- 二期文档 -->
-                <div class="document-item">
-                    <div class="doc-info">
-                        <i class="fas fa-file-pdf doc-icon"></i>
-                        <div>
-                            <div class="doc-title">二手行业指数管理二期 - 打标配置化页面</div>
-                            <span class="doc-phase">二期</span>
+            <!-- 二期展示 -->
+            <div class="gallery-section">
+                <h3><i class="fas fa-cogs"></i> 二期 - 配置化能力</h3>
+                <div class="image-gallery">
+                    <div class="gallery-item">
+                        <img src="images/beike/二期-打标配置化_page1.png" alt="二期界面展示1">
+                        <div class="gallery-caption">
+                            <h4>打标配置化页面</h4>
+                            <p>实现打标配置化管理功能</p>
                         </div>
                     </div>
-                    <a href="贝壳/二期/二手行业指数管理二期-打标配置化页面.pdf" target="_blank">
-                        <i class="fas fa-download"></i> 查看
-                    </a>
-                </div>
-                <div class="document-item">
-                    <div class="doc-info">
-                        <i class="fas fa-file-pdf doc-icon"></i>
-                        <div>
-                            <div class="doc-title">二手行业指数管理二期 - 整盘整栋属性管理</div>
-                            <span class="doc-phase">二期</span>
+                    <div class="gallery-item">
+                        <img src="images/beike/二期-打标配置化_page2.png" alt="二期界面展示2">
+                        <div class="gallery-caption">
+                            <h4>属性管理系统</h4>
+                            <p>整盘整栋属性管理功能</p>
                         </div>
                     </div>
-                    <a href="贝壳/二期/二手行业指数管理二期-整盘整栋属性管理.pdf" target="_blank">
-                        <i class="fas fa-download"></i> 查看
-                    </a>
                 </div>
-                <div class="document-item">
-                    <div class="doc-info">
-                        <i class="fas fa-file-pdf doc-icon"></i>
-                        <div>
-                            <div class="doc-title">二手行业指数管理二期 - 明细类数据线上推送匹配</div>
-                            <span class="doc-phase">二期</span>
-                        </div>
-                    </div>
-                    <a href="贝壳/二期/二手行业指数管理二期-明细类数据线上推送匹配.pdf" target="_blank">
-                        <i class="fas fa-download"></i> 查看
-                    </a>
-                </div>
-                <div class="document-item">
-                    <div class="doc-info">
-                        <i class="fas fa-file-pdf doc-icon"></i>
-                        <div>
-                            <div class="doc-title">二手行业指数管理二期 - 物业地址不存在管理</div>
-                            <span class="doc-phase">二期</span>
-                        </div>
-                    </div>
-                    <a href="贝壳/二期/二手行业指数管理二期-物业地址不存在管理.pdf" target="_blank">
-                        <i class="fas fa-download"></i> 查看
-                    </a>
-                </div>
+            </div>
 
-                <!-- 三期文档 -->
-                <div class="document-item">
-                    <div class="doc-info">
-                        <i class="fas fa-file-pdf doc-icon"></i>
-                        <div>
-                            <div class="doc-title">二手行指管理（三期）- 交易侧数据需求</div>
-                            <span class="doc-phase">三期</span>
+            <!-- 三期展示 -->
+            <div class="gallery-section">
+                <h3><i class="fas fa-expand-arrows-alt"></i> 三期 - 场景化扩展</h3>
+                <div class="image-gallery">
+                    <div class="gallery-item">
+                        <img src="images/beike/三期-楼盘明细匹配_page1.png" alt="三期界面展示1">
+                        <div class="gallery-caption">
+                            <h4>楼盘明细匹配</h4>
+                            <p>楼盘明细类数据线上匹配及公示核对功能</p>
                         </div>
                     </div>
-                    <a href="贝壳/三期/二手行指管理（三期）-交易侧数据需求.pdf" target="_blank">
-                        <i class="fas fa-download"></i> 查看
-                    </a>
-                </div>
-                <div class="document-item">
-                    <div class="doc-info">
-                        <i class="fas fa-file-pdf doc-icon"></i>
-                        <div>
-                            <div class="doc-title">二手行指管理（三期）- 城市/行政区总数场景数据录入</div>
-                            <span class="doc-phase">三期</span>
+                    <div class="gallery-item">
+                        <img src="images/beike/三期-楼盘明细匹配_page2.png" alt="三期界面展示2">
+                        <div class="gallery-caption">
+                            <h4>数据节点扩展</h4>
+                            <p>增加成交数据节点，扩展数据覆盖面</p>
                         </div>
                     </div>
-                    <a href="贝壳/三期/二手行指管理（三期）-城市／行政区总数场景数据录入、匹配、.pdf" target="_blank">
-                        <i class="fas fa-download"></i> 查看
-                    </a>
                 </div>
-                <div class="document-item">
-                    <div class="doc-info">
-                        <i class="fas fa-file-pdf doc-icon"></i>
-                        <div>
-                            <div class="doc-title">二手行指管理（三期）- 楼盘明细类数据线上匹配及公示核对</div>
-                            <span class="doc-phase">三期</span>
-                        </div>
-                    </div>
-                    <a href="贝壳/三期/二手行指管理（三期）-楼盘明细类数据线上匹配及公示核对功能.pdf" target="_blank">
-                        <i class="fas fa-download"></i> 查看
-                    </a>
-                </div>
-                <div class="document-item">
-                    <div class="doc-info">
-                        <i class="fas fa-file-pdf doc-icon"></i>
-                        <div>
-                            <div class="doc-title">二手行指管理（三期）- 行政区、城市总数场景增加成交数据节点</div>
-                            <span class="doc-phase">三期</span>
-                        </div>
-                    </div>
-                    <a href="贝壳/三期/二手行指管理（三期）-行政区、城市总数场景增加成交数据节点及对数据匹配侧的影响调.pdf" target="_blank">
-                        <i class="fas fa-download"></i> 查看
-                    </a>
-                </div>
+            </div>
 
-                <!-- 四期文档 -->
-                <div class="document-item">
-                    <div class="doc-info">
-                        <i class="fas fa-file-pdf doc-icon"></i>
-                        <div>
-                            <div class="doc-title">二手行指管理 - 分子重复计算</div>
-                            <span class="doc-phase">四期</span>
+            <!-- 四期展示 -->
+            <div class="gallery-section">
+                <h3><i class="fas fa-check-circle"></i> 四期 - 数据质量优化</h3>
+                <div class="image-gallery">
+                    <div class="gallery-item">
+                        <img src="images/beike/四期-分子重复计算_page1.png" alt="四期界面展示1">
+                        <div class="gallery-caption">
+                            <h4>分子重复计算优化</h4>
+                            <p>解决指数计算中的重复问题</p>
                         </div>
                     </div>
-                    <a href="贝壳/四期/二手行指管理-分子重复计算.pdf" target="_blank">
-                        <i class="fas fa-download"></i> 查看
-                    </a>
-                </div>
-                <div class="document-item">
-                    <div class="doc-info">
-                        <i class="fas fa-file-pdf doc-icon"></i>
-                        <div>
-                            <div class="doc-title">月度补充数据系统功能 - 月度数据修改</div>
-                            <span class="doc-phase">四期</span>
+                    <div class="gallery-item">
+                        <img src="images/beike/四期-分子重复计算_page2.png" alt="四期界面展示2">
+                        <div class="gallery-caption">
+                            <h4>数据质量保障</h4>
+                            <p>建立完善的数据核对与修正机制</p>
                         </div>
                     </div>
-                    <a href="贝壳/四期/月度补充数据系统功能-月度数据修改.pdf" target="_blank">
-                        <i class="fas fa-download"></i> 查看
-                    </a>
-                </div>
-                <div class="document-item">
-                    <div class="doc-info">
-                        <i class="fas fa-file-pdf doc-icon"></i>
-                        <div>
-                            <div class="doc-title">补充数据产品能力 - 公示任务修改</div>
-                            <span class="doc-phase">四期</span>
-                        </div>
-                    </div>
-                    <a href="贝壳/四期/补充数据产品能力-公示任务修改.pdf" target="_blank">
-                        <i class="fas fa-download"></i> 查看
-                    </a>
                 </div>
             </div>
         </div>
