@@ -428,27 +428,104 @@ section {
 }
 
 .about-content {
-    max-width: 900px;
+    max-width: 1200px;
     margin: 0 auto;
 }
 
-.about-text .lead {
-    font-size: 1.2rem;
+.about-intro {
+    text-align: center;
+    margin-bottom: 3rem;
+    padding: 1.5rem 2rem;
+    background: linear-gradient(135deg, rgba(0, 240, 255, 0.1), rgba(123, 44, 191, 0.1));
+    border: 1px solid var(--accent-primary);
+    border-radius: 10px;
+}
+
+.intro-text {
+    font-size: 1.3rem;
     color: var(--accent-primary);
-    margin-bottom: 1.5rem;
+    font-weight: 500;
+    text-shadow: 0 0 20px rgba(0, 240, 255, 0.3);
 }
 
-.about-text p {
-    color: var(--text-secondary);
-    margin-bottom: 1rem;
-    line-height: 1.8;
-}
-
-.highlights {
+.competencies {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1rem;
-    margin-top: 2rem;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+}
+
+.competency-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 15px;
+    padding: 2rem;
+    transition: all 0.3s;
+    position: relative;
+    overflow: hidden;
+}
+
+.competency-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: linear-gradient(90deg, var(--accent-primary), var(--accent-secondary));
+    transform: scaleX(0);
+    transition: transform 0.3s;
+}
+
+.competency-card:hover::before {
+    transform: scaleX(1);
+}
+
+.competency-card:hover {
+    transform: translateY(-5px);
+    border-color: var(--accent-primary);
+    box-shadow: 0 10px 30px rgba(0, 240, 255, 0.15);
+}
+
+.competency-icon {
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.8rem;
+    color: white;
+    margin-bottom: 1.5rem;
+    position: relative;
+}
+
+.competency-icon::after {
+    content: '';
+    position: absolute;
+    inset: -3px;
+    border-radius: 15px;
+    background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+    opacity: 0;
+    filter: blur(10px);
+    transition: opacity 0.3s;
+    z-index: -1;
+}
+
+.competency-card:hover .competency-icon::after {
+    opacity: 0.5;
+}
+
+.competency-card h3 {
+    font-size: 1.3rem;
+    margin-bottom: 1rem;
+    color: var(--accent-primary);
+}
+
+.competency-card p {
+    color: var(--text-secondary);
+    line-height: 1.8;
+    font-size: 0.95rem;
 }
 
 .highlight-item {
@@ -979,7 +1056,7 @@ section {
         grid-column: span 1;
     }
 
-    .about-content {
+    .competencies {
         grid-template-columns: 1fr;
     }
 }
