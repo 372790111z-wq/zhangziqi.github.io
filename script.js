@@ -229,9 +229,7 @@ statNumbers.forEach(stat => statObserver.observe(stat));
 
 // ===== 下载简历功能 =====
 function downloadResume() {
-    alert('简历下载功能：请将您的PDF简历文件放在项目根目录下，并更新此函数中的文件路径。');
-    // 实际使用时，可以这样：
-    // window.open('resume.pdf', '_blank');
+    window.open('张梓琪AI2026.pdf', '_blank');
 }
 
 // ===== 技能标签悬停效果 =====
