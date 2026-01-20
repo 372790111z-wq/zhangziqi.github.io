@@ -186,6 +186,29 @@ body {
     width: 100%;
 }
 
+.knowledge-link {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    background: var(--text-primary);
+    color: var(--bg-primary);
+    text-decoration: none;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: all 0.3s;
+}
+
+.knowledge-link:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.knowledge-link i {
+    font-size: 1rem;
+}
+
 /* ===== Hero区域 ===== */
 .hero {
     min-height: 100vh;
