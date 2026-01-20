@@ -294,49 +294,35 @@ body {
 .focus-tags {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 1.2rem;
+    gap: 1rem;
     width: 100%;
 }
 
 .focus-tag {
-    padding: 1.5rem;
-    border-radius: 12px;
+    padding: 1rem;
+    border-radius: 10px;
     display: flex;
     flex-direction: column;
-    gap: 0.4rem;
+    gap: 0.3rem;
     transition: transform 0.3s, box-shadow 0.3s;
-}
-
-.focus-tag.primary {
     background: var(--text-primary);
     color: var(--bg-primary);
 }
 
-.focus-tag.secondary {
-    background: var(--bg-secondary);
-    border: 1px solid var(--border);
-    color: var(--text-primary);
-}
-
 .focus-tag:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
 }
 
 .focus-tag .tag-label {
-    font-size: 1.4rem;
+    font-size: 1.1rem;
     font-weight: 700;
-    letter-spacing: 0.5px;
+    letter-spacing: 0.3px;
 }
 
-.focus-tag.primary .tag-desc {
-    font-size: 0.85rem;
+.focus-tag .tag-desc {
+    font-size: 0.75rem;
     opacity: 0.8;
-}
-
-.focus-tag.secondary .tag-desc {
-    font-size: 0.85rem;
-    color: var(--text-secondary);
 }
 
 /* CTA按钮组 */
