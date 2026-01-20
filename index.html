@@ -52,43 +52,58 @@
 
     <!-- Hero区域 -->
     <section class="hero" id="hero">
-        <div class="hero-content">
-            <div class="avatar-container">
-                <div class="avatar">
+        <div class="hero-container">
+            <!-- 左侧栏 -->
+            <div class="hero-sidebar">
+                <div class="sidebar-avatar">
                     <i class="fas fa-user"></i>
                 </div>
-                <div class="status-indicator"></div>
+                <h1 class="sidebar-name">张梓琪</h1>
+                <p class="sidebar-title">AI产品经理</p>
+                <p class="sidebar-tagline">赋能业务 · 智造未来</p>
+                <div class="sidebar-contact">
+                    <a href="tel:13241294350" class="contact-item">
+                        <i class="fas fa-phone"></i>
+                        <span>132-4129-4350</span>
+                    </a>
+                    <a href="mailto:372790111@qq.com" class="contact-item">
+                        <i class="fas fa-envelope"></i>
+                        <span>372790111@qq.com</span>
+                    </a>
+                </div>
             </div>
-            <div class="hero-text">
-                <p class="greeting">&lt;hello world /&gt;</p>
-                <h1 class="name">
-                    张梓琪
-                </h1>
-                <p class="title"><span id="typing-text">AI产品经理</span> <span class="cursor">|</span></p>
-                <p class="tagline">赋能业务 · 智造未来</p>
-                <div class="hero-badges">
-                    <span class="badge">AIGC</span>
-                    <span class="badge">RTC</span>
-                    <span class="badge">Agent</span>
-                    <span class="badge">数据驱动</span>
-                </div>
-                <div class="contact-info">
-                    <a href="tel:13241294350"><i class="fas fa-phone"></i> 132-4129-4350</a>
-                    <a href="mailto:372790111@qq.com"><i class="fas fa-envelope"></i> 372790111@qq.com</a>
-                </div>
-                <div class="hero-actions">
-                    <a href="#portfolio" class="btn btn-primary">
-                        <i class="fas fa-rocket"></i> 查看作品
-                    </a>
-                    <a href="#" class="btn btn-secondary" onclick="downloadResume()">
-                        <i class="fas fa-download"></i> 下载简历
-                    </a>
-                </div>
+
+            <!-- 主区域 -->
+            <div class="hero-main">
+                <div class="main-content">
+                    <div class="focus-tags">
+                        <div class="focus-tag primary">
+                            <span class="tag-label">AIGC</span>
+                            <span class="tag-desc">内容生成</span>
+                        </div>
+                        <div class="focus-tag primary">
+                            <span class="tag-label">RTC</span>
+                            <span class="tag-desc">实时通信</span>
+                        </div>
+                        <div class="focus-tag primary">
+                            <span class="tag-label">Agent</span>
+                            <span class="tag-desc">智能体</span>
+                        </div>
+                        <div class="focus-tag secondary">
+                            <span class="tag-label">数据驱动</span>
+                            <span class="tag-desc">决策导向</span>
+                        </div>
                     </div>
-                </div>
-                <div class="scroll-indicator">
-                    <span>SCROLL</span>
-                    <div class="scroll-line"></div>
+                    <div class="cta-group">
+                        <a href="#portfolio" class="cta-button primary">
+                            <span>查看作品</span>
+                            <i class="fas fa-arrow-right"></i>
+                        </a>
+                        <a href="#" class="cta-button secondary" onclick="downloadResume()">
+                            <span>下载简历</span>
+                            <i class="fas fa-download"></i>
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
