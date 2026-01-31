@@ -3,642 +3,329 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="张梓琪 - AI产品经理，专注于AIGC、实时音视频通信、智能对话系统">
-    <meta name="keywords" content="AI产品经理, AIGC, RTC, 实时音视频, 智能对话系统, 产品架构">
+    <meta name="description" content="张梓琪 - AI产品经理，专注于AIGC、RTC、Agent产品架构设计">
     <title>张梓琪 | AI产品经理</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="preview-styles.css">
+    <link rel="stylesheet" href="models-styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 </head>
 <body>
-    <!-- 悬浮导航栏 -->
-    <div class="floating-nav">
-        <a href="#hero" class="floating-nav-item active" data-target="hero">
-            <span class="floating-nav-icon"><i class="fas fa-home"></i></span>
-            <span class="floating-nav-text">首页</span>
-        </a>
-        <a href="#about" class="floating-nav-item" data-target="about">
-            <span class="floating-nav-icon"><i class="fas fa-user"></i></span>
-            <span class="floating-nav-text">关于</span>
-        </a>
-        <a href="#experience" class="floating-nav-item" data-target="experience">
-            <span class="floating-nav-icon"><i class="fas fa-briefcase"></i></span>
-            <span class="floating-nav-text">经历</span>
-        </a>
-        <a href="#projects" class="floating-nav-item" data-target="projects">
-            <span class="floating-nav-icon"><i class="fas fa-project-diagram"></i></span>
-            <span class="floating-nav-text">项目</span>
-        </a>
-        <a href="#skills" class="floating-nav-item" data-target="skills">
-            <span class="floating-nav-icon"><i class="fas fa-tools"></i></span>
-            <span class="floating-nav-text">技能</span>
-        </a>
-        <a href="#portfolio" class="floating-nav-item" data-target="portfolio">
-            <span class="floating-nav-icon"><i class="fas fa-folder-open"></i></span>
-            <span class="floating-nav-text">作品集</span>
-        </a>
-        <a href="#content" class="floating-nav-item" data-target="content">
-            <span class="floating-nav-icon"><i class="fas fa-share-alt"></i></span>
-            <span class="floating-nav-text">分享</span>
-        </a>
-    </div>
+    <!-- 背景动效 -->
+    <canvas id="particles"></canvas>
 
-    <!-- 导航栏 -->
-    <nav class="navbar">
-        <div class="nav-container">
-            <div class="logo">&lt;ZZQ /&gt;</div>
-            <ul class="nav-menu">
-                <li><a href="#about">关于我</a></li>
-                <li><a href="#experience">工作经历</a></li>
-                <li><a href="#projects">项目经历</a></li>
-                <li><a href="#skills">专业技能</a></li>
-                <li><a href="#portfolio">作品集</a></li>
-                <li><a href="#content">内容分享</a></li>
-            </ul>
-            <a href="https://my.feishu.cn/wiki/Bm5GwFqJvifXTVkiyLgcP9xqnmg" class="knowledge-link" target="_blank" rel="noopener noreferrer">
-                <i class="fas fa-book"></i>
-                <span>知识库</span>
-            </a>
+    <!-- 主导航（极简） -->
+    <nav class="nav-minimal">
+        <div class="nav-logo">ZZQ</div>
+        <div class="nav-links">
+            <a href="#cases">案例</a>
+            <a href="#models">模型</a>
+            <a href="#about">关于</a>
+            <a href="#content">写作</a>
+            <a href="#contact">联系</a>
         </div>
     </nav>
 
-    <!-- Hero区域 -->
-    <section class="hero" id="hero">
-        <div class="hero-container">
-            <!-- 左侧栏 -->
-            <div class="hero-sidebar">
-                <div class="sidebar-avatar animate-float">
-                    <i class="fas fa-user"></i>
-                </div>
-                <h1 class="sidebar-name">张梓琪</h1>
-                <p class="sidebar-title">AI产品经理 · 10年经验</p>
-                <div class="sidebar-tags">
-                    <span class="sidebar-tag">AIGC</span>
-                    <span class="sidebar-tag">架构设计</span>
-                    <span class="sidebar-tag">指标体系</span>
-                    <span class="sidebar-tag">业务策略</span>
-                    <span class="sidebar-tag">模型评测</span>
-                </div>
-
-                <div class="sidebar-contact">
-                    <a href="tel:13241294350" class="contact-item">
-                        <i class="fas fa-phone"></i>
-                        <span>132-4129-4350</span>
-                    </a>
-                    <a href="mailto:372790111@qq.com" class="contact-item">
-                        <i class="fas fa-envelope"></i>
-                        <span>372790111@qq.com</span>
-                    </a>
-                    <a href="https://github.com" class="contact-item" target="_blank" rel="noopener noreferrer">
-                        <i class="fab fa-github"></i>
-                        <span>GitHub</span>
-                    </a>
-                </div>
+    <!-- Hero Section - 产品宣言 -->
+    <section id="hero" class="hero-section">
+        <div class="hero-content">
+            <h1 class="hero-title">
+                构建有温度的<br>
+                <span class="highlight">AI产品</span>
+            </h1>
+            <p class="hero-subtitle">
+                AI产品经理 & 架构设计师<br>
+                10年产品经验，专注于AIGC、RTC、Agent产品架构设计
+            </p>
+            <div class="hero-tags">
+                <span class="tag" data-target="aigc">#AIGC</span>
+                <span class="tag" data-target="rtc">#RTC</span>
+                <span class="tag" data-target="agent">#Agent</span>
             </div>
+            <div class="hero-cta-group">
+                <a href="work.html" target="_blank" class="hero-cta primary">查看案例</a>
+                <a href="#contact" class="hero-cta secondary">联系我</a>
+            </div>
+        </div>
+        <div class="hero-stats">
+            <div class="stat-item">
+                <div class="stat-number">10+</div>
+                <div class="stat-label">年产品经验</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">4</div>
+                <div class="stat-label">核心产品</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">3</div>
+                <div class="stat-label">行业领域</div>
+            </div>
+        </div>
+    </section>
 
-            <!-- 主区域 -->
-            <div class="hero-main">
-                <div class="main-content">
-                    <div class="hero-intro">
-                        <h2>你好，我是</h2>
-                        <h1>张梓琪，专注于 <span id="typing-text">AI产品经理</span></h1>
-                        <p>具备从底层架构到应用落地的全栈视野。主导 ASR-LLM-TTS 全链路流式架构设计，精通 Agent 编排、RAG 及 Prompt 工程。成功落地全双工交互与智能打断机制，有效平衡模型幻觉与 Token 成本，实现技术与商业双赢。</p>
-                    </div>
-                    <div class="cta-group">
-                        <a href="#projects" class="cta-button primary">
-                            <span>查看项目</span>
+    <!-- 核心案例 - 预览卡片 -->
+    <section id="cases" class="cases-section">
+        <div class="section-header">
+            <h2 class="section-label">Selected Cases</h2>
+            <h3 class="section-title">核心产品案例</h3>
+            <p class="section-desc">4个核心产品案例，覆盖AI实时通话、AIGC内容生成、数据分析与政务系统等领域</p>
+        </div>
+        <div class="cases-slider-container">
+            <div class="cases-slider-wrapper">
+                <div class="cases-slider">
+                    <!-- 案例1: 灵犀AI RTC -->
+                    <a href="lingxi-project.html" class="case-card">
+                        <div class="case-image">
+                            <i class="fas fa-robot"></i>
+                        </div>
+                        <div class="case-content">
+                            <span class="case-category">RTC / AI</span>
+                            <h3 class="case-title">灵犀AI实时通话</h3>
+                            <p class="case-value">&lt; 800ms 延迟</p>
+                            <p class="case-desc">端云协同的智能打断机制设计</p>
+                        </div>
+                        <div class="case-arrow">
                             <i class="fas fa-arrow-right"></i>
-                        </a>
-                        <a href="#" class="cta-button secondary" onclick="downloadResume(); return false;">
-                            <span>下载简历</span>
-                            <i class="fas fa-download"></i>
-                        </a>
-                    </div>
+                        </div>
+                    </a>
+
+                    <!-- 案例2: 灵犀AI播客 -->
+                    <a href="podcast-project.html" class="case-card">
+                        <div class="case-image">
+                            <i class="fas fa-podcast"></i>
+                        </div>
+                        <div class="case-content">
+                            <span class="case-category">AIGC / 音频</span>
+                            <h3 class="case-title">AI自动化播客</h3>
+                            <p class="case-value">全流程自动化</p>
+                            <p class="case-desc">文本到播客的AI内容生成</p>
+                        </div>
+                        <div class="case-arrow">
+                            <i class="fas fa-arrow-right"></i>
+                        </div>
+                    </a>
+
+                    <!-- 案例3: 行业指数系统 -->
+                    <a href="industry-index-project.html" class="case-card">
+                        <div class="case-image">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <div class="case-content">
+                            <span class="case-category">Data / BI</span>
+                            <h3 class="case-title">行业指数系统</h3>
+                            <p class="case-value">91城覆盖</p>
+                            <p class="case-desc">二手房交易数据分析平台</p>
+                        </div>
+                        <div class="case-arrow">
+                            <i class="fas fa-arrow-right"></i>
+                        </div>
+                    </a>
+
+                    <!-- 案例4: 组工人事系统 -->
+                    <a href="zuzhigu-renashi-project.html" class="case-card">
+                        <div class="case-image">
+                            <i class="fas fa-landmark"></i>
+                        </div>
+                        <div class="case-content">
+                            <span class="case-category">G-Product / SaaS</span>
+                            <h3 class="case-title">组工人事系统</h3>
+                            <p class="case-value">95%+ 满意度</p>
+                            <p class="case-desc">政务数字化中台架构设计</p>
+                        </div>
+                        <div class="case-arrow">
+                            <i class="fas fa-arrow-right"></i>
+                        </div>
+                    </a>
                 </div>
+            </div>
+        </div>
+        <div class="slider-controls">
+            <div class="slider-dots"></div>
+            <div class="slider-nav-buttons">
+                <button class="slider-nav slider-prev" aria-label="上一个">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                <button class="slider-nav slider-next" aria-label="下一个">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
             </div>
         </div>
     </section>
 
-    <!-- 关于我 -->
-    <section id="about" class="about">
-        <div class="container">
-            <h2 class="section-title">
-                <span class="title-icon">&lt;/&gt;</span>
-                关于我
-            </h2>
-            <div class="competencies-grid">
-                <div class="competency-card">
-                    <h3>AI能力</h3>
-                    <p>具备从底层架构到应用落地的全栈视野。主导 ASR-LLM-TTS 全链路流式架构设计，精通 Agent 编排、RAG 及 Prompt 工程。成功落地全双工交互与智能打断机制，有效平衡了模型幻觉与 Token 成本，实现技术与商业的双赢</p>
+    <!-- 大模型参数对比 - 交互式数据可视化 -->
+    <section id="models" class="models-section">
+        <div class="section-header">
+            <h2 class="section-label">LLM Intelligence Index</h2>
+            <h3 class="section-title">大模型智能指数</h3>
+            <p class="section-desc">作为AI产品经理，对主流大模型的技术选型思考与对比分析</p>
+        </div>
+        <div class="models-content">
+            <!-- 坐标图 -->
+            <div class="models-chart-container">
+                <div class="chart-legend">
+                    <div class="legend-item">
+                        <span class="legend-dot openai"></span>
+                        <span>OpenAI</span>
+                    </div>
+                    <div class="legend-item">
+                        <span class="legend-dot anthropic"></span>
+                        <span>Anthropic</span>
+                    </div>
+                    <div class="legend-item">
+                        <span class="legend-dot google"></span>
+                        <span>Google</span>
+                    </div>
+                    <div class="legend-item">
+                        <span class="legend-dot other"></span>
+                        <span>其他</span>
+                    </div>
                 </div>
-                <div class="competency-card">
-                    <h3>产品能力</h3>
-                    <p>10年跨行业产品经验（B端/C端/G端），擅长复杂业务的中台化抽象与标准化封装。曾通过构建通用底层架构，将大规模政务/企业业务的交付效能提升 30% 以上</p>
+                <div class="models-chart" id="modelsChart">
+                    <canvas id="modelsCanvas"></canvas>
                 </div>
-                <div class="competency-card">
-                    <h3>产品思维</h3>
-                    <p>坚持场景与价值导向。擅长设计"人机协同"的容错机制（如澄清流程）解决 AI 落地信任难题；极度关注微观体验，通过语义校验与韵律调优，打造接近真人的自然交互感</p>
+                <div class="chart-tooltip" id="chartTooltip"></div>
+            </div>
+
+            <!-- 筛选器 -->
+            <div class="model-filters">
+                <div class="filter-group">
+                    <label>发布机构</label>
+                    <select id="modelOrgFilter">
+                        <option value="all">全部机构</option>
+                        <option value="OpenAI">OpenAI</option>
+                        <option value="Anthropic">Anthropic</option>
+                        <option value="Google">Google</option>
+                        <option value="DeepSeek">DeepSeek</option>
+                        <option value="Alibaba">阿里</option>
+                        <option value="Meta">Meta</option>
+                        <option value="xAI">xAI</option>
+                    </select>
                 </div>
-                <div class="competency-card">
-                    <h3>数据决策</h3>
-                    <p>拥有深厚的数据治理背景，擅长构建北极星指标体系。在 AI 项目中建立首字生成时间（TTFT）、MOS 分等评测标准；在数据项目中通过异构数据对齐，大幅提升业务运营决策效率</p>
+                <div class="filter-group">
+                    <label>发布时间</label>
+                    <select id="modelYearFilter">
+                        <option value="all">全部年份</option>
+                        <option value="2025" selected>2025</option>
+                        <option value="2024">2024</option>
+                        <option value="2023">2023</option>
+                    </select>
                 </div>
             </div>
+
+
+
+            <!-- 上下文窗口演变时间线 -->
+            <div class="context-timeline">
+                <h4 class="timeline-title">上下文窗口演变历程</h4>
+                <div class="timeline-track" id="contextTimeline">
+                </div>
+            </div>
+
+            <p class="models-note">
+                * 数据来源: OpenCompass 司南 & SuperCLUE 中文大模型测评基准 | 更新日期: 2026-01-31
+            </p>
         </div>
     </section>
 
-    <!-- 工作经历 -->
-    <section id="experience" class="experience">
-        <div class="container">
-            <h2 class="section-title">
-                <span class="title-icon">&lt;timeline/&gt;</span>
-                工作经历
-            </h2>
-            <div class="timeline-wrapper">
-                <div class="timeline-horizontal">
-                    <div class="timeline-card clickable" onclick="window.open('lingxi-project.html', '_blank')">
-                        <div class="timeline-dot"></div>
-                        <span class="timeline-period"><i class="far fa-calendar-alt"></i> 2025.03 - 至今</span>
-                        <h3>天津神州数据科技有限公司</h3>
-                        <p class="position">AI产品经理</p>
-                        <ul class="achievements">
-                            <li>主导中国移动"灵犀"AI助手项目AI RTC与AIGC模块底层架构设计</li>
-                            <li>负责AI Agent核心架构设计，主导标准化提示词体系构建</li>
-                            <li>建立AI产品Benchmark评测体系，推动AI能力标准化落地</li>
-                        </ul>
-                        <div class="tech-tags">
-                            <span class="tech-tag">RTC</span>
-                            <span class="tech-tag">AIGC</span>
-                            <span class="tech-tag">Agent</span>
-                        </div>
-                    </div>
-
-                    <div class="timeline-card clickable" onclick="window.open('beike-project.html', '_blank')">
-                        <div class="timeline-dot"></div>
-                        <span class="timeline-period"><i class="far fa-calendar-alt"></i> 2023.05 - 2024.12</span>
-                        <h3>贝壳（北京）科技有限公司</h3>
-                        <p class="position">产品经理</p>
-                        <ul class="achievements">
-                            <li>主导构建智能数据对齐引擎，提升核对效率40%</li>
-                            <li>设计多源异构数据冲突处理策略</li>
-                            <li>推动"日日算、周周盘"功能模块上线，支撑91城精细化运营</li>
-                        </ul>
-                        <div class="tech-tags">
-                            <span class="tech-tag">数据治理</span>
-                            <span class="tech-tag">算法优化</span>
-                            <span class="tech-tag">BI看板</span>
-                        </div>
-                    </div>
-
-                    <div class="timeline-card clickable" onclick="window.open('capital-info-project.html', '_blank')">
-                        <div class="timeline-dot"></div>
-                        <span class="timeline-period"><i class="far fa-calendar-alt"></i> 2019.02 - 2023.04</span>
-                        <h3>首都信息发展股份有限公司</h3>
-                        <p class="position">产品经理</p>
-                        <ul class="achievements">
-                            <li>负责G端核心业务系统（组工人事系统）规划与迭代</li>
-                            <li>构建"组工人事OA"产品化底层架构，交付效能提升30%</li>
-                            <li>统筹多个省级、市级重点项目，客户满意度95%+</li>
-                        </ul>
-                        <div class="tech-tags">
-                            <span class="tech-tag">G端产品</span>
-                            <span class="tech-tag">中台架构</span>
-                            <span class="tech-tag">项目管理</span>
-                        </div>
-                    </div>
-
-                    <div class="timeline-card">
-                        <div class="timeline-dot"></div>
-                        <span class="timeline-period"><i class="far fa-calendar-alt"></i> 2015.07 - 2019.02</span>
-                        <h3>金吉列出国留学咨询服务有限公司</h3>
-                        <p class="position">产品经理</p>
-                        <ul class="achievements">
-                            <li>负责"大学长"平台（PC/APP）全生命周期管理</li>
-                            <li>主导会员制平台从0到1设计，3个月GMV突破10万</li>
-                            <li>重构APP搜索模块，推荐算法CTR提升35%</li>
-                        </ul>
-                        <div class="tech-tags">
-                            <span class="tech-tag">增长策略</span>
-                            <span class="tech-tag">推荐算法</span>
-                            <span class="tech-tag">CRM</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
+    <!-- 关于与方法论 -->
+    <section id="about" class="about-section">
+        <div class="section-header">
+            <h2 class="section-label">About</h2>
+            <h3 class="section-title">关于我</h3>
         </div>
-    </section>
-
-    <!-- 项目经历 -->
-    <section id="projects" class="projects">
-        <div class="container">
-            <h2 class="section-title">
-                <span class="title-icon">&lt;projects/&gt;</span>
-                项目经历
-            </h2>
-            <div class="projects-grid">
-                <!-- 重点项目1 -->
-                <div class="project-card featured">
-                    <div class="project-top">
-                        <div class="project-icon-wrapper">
-                            <div class="project-icon">
-                                <i class="fas fa-robot"></i>
-                            </div>
-                            <span class="project-date"><i class="far fa-clock"></i> 2025.04 - 2025.07</span>
-                        </div>
-                        <div class="project-title-section">
-                            <h3>灵犀 AI 实时音视频通话模块</h3>
-                            <p class="project-desc">为企业内部办公及政务咨询场景提供具备全时感知与自然对话能力的AI虚拟助手</p>
-                        </div>
-                    </div>
-                    
-                    <div class="project-highlights">
-                        <div class="highlight">
-                            <div class="highlight-icon"><i class="fas fa-bolt"></i></div>
-                            <div class="highlight-text">
-                                <span class="highlight-value">&lt; 800ms</span>
-                                <span class="highlight-label">端到端延迟</span>
-                            </div>
-                        </div>
-                        <div class="highlight">
-                            <div class="highlight-icon"><i class="fas fa-check-circle"></i></div>
-                            <div class="highlight-text">
-                                <span class="highlight-value">≥ 95%</span>
-                                <span class="highlight-label">ASR准确率</span>
-                            </div>
-                        </div>
-                        <div class="highlight">
-                            <div class="highlight-icon"><i class="fas fa-chart-bar"></i></div>
-                            <div class="highlight-text">
-                                <span class="highlight-value">-15%</span>
-                                <span class="highlight-label">Token消耗</span>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="project-content">
-                        <div class="project-details">
-                            <h4><i class="fas fa-tasks"></i> 核心工作</h4>
-                            <ul>
-                                <li>设计端云协同的智能打断机制（Barge-in）</li>
-                                <li>主导多模态感知、长短期记忆及任务规划架构</li>
-                                <li>沉淀标准化AI通话产品组件，支持多场景快速配置</li>
-                            </ul>
-                        </div>
-                        <div class="project-tags">
-                            <span class="tag-label"><i class="fas fa-tag"></i> 技术栈</span>
-                            <div class="tag-list">
-                                <span class="tag">RTC</span>
-                                <span class="tag">VAD</span>
-                                <span class="tag">多模态交互</span>
-                                <span class="tag">Agent规划</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- 重点项目2 -->
-                <div class="project-card featured clickable" onclick="window.open('podcast-project.html', '_blank')">
-                    <div class="project-top">
-                        <div class="project-icon-wrapper">
-                            <div class="project-icon">
-                                <i class="fas fa-podcast"></i>
-                            </div>
-                            <span class="project-date"><i class="far fa-clock"></i> 2025.08 - 2025.12</span>
-                        </div>
-                        <div class="project-title-section">
-                            <h3>灵犀 AI 自动化播客生成模块 <i class="fas fa-external-link-alt"></i></h3>
-                            <p class="project-desc">用于企业内部培训、营销播客制作、知识付费产品的音频化转换</p>
-                        </div>
-                    </div>
-                    
-                    <div class="project-highlights">
-                        <div class="highlight">
-                            <div class="highlight-icon"><i class="fas fa-cogs"></i></div>
-                            <div class="highlight-text">
-                                <span class="highlight-value">100%</span>
-                                <span class="highlight-label">全流程自动化</span>
-                            </div>
-                        </div>
-                        <div class="highlight">
-                            <div class="highlight-icon"><i class="fas fa-layer-group"></i></div>
-                            <div class="highlight-text">
-                                <span class="highlight-value">4+</span>
-                                <span class="highlight-label">输入类型支持</span>
-                            </div>
-                        </div>
-                        <div class="highlight">
-                            <div class="highlight-icon"><i class="fas fa-sliders-h"></i></div>
-                            <div class="highlight-text">
-                                <span class="highlight-value">∞</span>
-                                <span class="highlight-label">个性化定制</span>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="project-content">
-                        <div class="project-details">
-                            <h4><i class="fas fa-tasks"></i> 核心工作</h4>
-                            <ul>
-                                <li>负责AI Agent核心配置（意图识别、提示词体系、入参出参逻辑）</li>
-                                <li>实现单人/双人播客模式切换，支持音色选择</li>
-                                <li>支持文本/PDF/Word/网页链接等多种输入形式</li>
-                            </ul>
-                        </div>
-                        <div class="project-tags">
-                            <span class="tag-label"><i class="fas fa-tag"></i> 技术栈</span>
-                            <div class="tag-list">
-                                <span class="tag">AIGC</span>
-                                <span class="tag">音频合成</span>
-                                <span class="tag">内容生成</span>
-                                <span class="tag">Agent</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- 一般项目1 -->
-                <div class="project-card">
-                    <div class="project-top">
-                        <div class="project-icon-wrapper">
-                            <div class="project-icon">
-                                <i class="fas fa-chart-line"></i>
-                            </div>
-                            <span class="project-date"><i class="far fa-clock"></i> 2023.05 - 2024.12</span>
-                        </div>
-                        <div class="project-title-section">
-                            <h3>行业指数系统</h3>
-                            <p class="project-desc">针对二手房、新房交易的数据匹配、分析及结果产出系统</p>
-                        </div>
-</div>
-                    
-                    <div class="project-highlights compact">
-                        <div class="highlight">
-                            <div class="highlight-icon"><i class="fas fa-globe"></i></div>
-                            <span>91城全量覆盖</span>
-                        </div>
-                        <div class="highlight">
-                            <div class="highlight-icon"><i class="fas fa-star"></i></div>
-                            <span>满意度4.0/5.0</span>
-                        </div>
-                    </div>
-                    
-                    <div class="project-tags">
-                        <span class="tag">数据治理</span>
-                        <span class="tag">数据匹配</span>
-                        <span class="tag">BI看板</span>
-                    </div>
-                </div>
-
-                <!-- 一般项目2 -->
-                <div class="project-card">
-                    <div class="project-top">
-                        <div class="project-icon-wrapper">
-                            <div class="project-icon">
-                                <i class="fas fa-building"></i>
-                            </div>
-                            <span class="project-date"><i class="far fa-clock"></i> 2020.03 - 2023.04</span>
-                        </div>
-                        <div class="project-title-section">
-                            <h3>组工人事系统</h3>
-                            <p class="project-desc">G端核心业务系统，涵盖机构编制、年度统计、任免审批等15+核心功能模块</p>
-                        </div>
-                    </div>
-                    
-                    <div class="project-highlights compact">
-                        <div class="highlight">
-                            <div class="highlight-icon"><i class="fas fa-rocket"></i></div>
-                            <span>交付效能提升30%</span>
-                        </div>
-                        <div class="highlight">
-                            <div class="highlight-icon"><i class="fas fa-smile"></i></div>
-                            <span>满意度95%+</span>
-                        </div>
-                    </div>
-                    
-                    <div class="project-tags">
-                        <span class="tag">G端产品</span>
-                        <span class="tag">中台架构</span>
-                        <span class="tag">政务系统</span>
-                    </div>
-                </div>
+        <div class="about-content">
+            <div class="about-main">
+                <p class="about-philosophy">
+                    10年产品经验，专注于AI产品的从0到1。<br>
+                    擅长将复杂技术转化为用户价值，<br>
+                    平衡技术可行性与商业目标。
+                </p>
             </div>
-        </div>
-    </section>
-
-    <!-- 技能 -->
-    <section id="skills" class="skills">
-        <div class="container">
-            <h2 class="section-title">
-                <span class="title-icon">&lt;skills/&gt;</span>
-                专业技能
-            </h2>
-            <div class="skills-container">
-                <div class="skill-category">
-                    <h3><i class="fas fa-brain"></i> AI & 技术能力</h3>
-                    <div class="skill-tags">
-                        <span class="skill-tag">AIGC产品架构</span>
-                        <span class="skill-tag">Agent规划与配置</span>
-                        <span class="skill-tag">RTC实时通信</span>
-                        <span class="skill-tag">提示词工程</span>
-                        <span class="skill-tag">多模态交互</span>
-                        <span class="skill-tag">VAD语音活动检测</span>
-                        <span class="skill-tag">ASR/语音识别</span>
-                        <span class="skill-tag">意图识别</span>
-                        <span class="skill-tag">Token优化</span>
-                        <span class="skill-tag">智能打断系统</span>
+            <div class="about-methods">
+                <div class="method-item">
+                    <div class="method-icon">
+                        <i class="fas fa-lightbulb"></i>
                     </div>
+                    <h4>产品方法论</h4>
+                    <p>用户需求洞察 · 技术可行性评估 · 数据驱动迭代</p>
                 </div>
-
-                <div class="skill-category">
-                    <h3><i class="fas fa-chart-pie"></i> 数据与分析</h3>
-                    <div class="skill-tags">
-                        <span class="skill-tag">数据对齐引擎</span>
-                        <span class="skill-tag">多维特征匹配</span>
-                        <span class="skill-tag">冲突仲裁机制</span>
-                        <span class="skill-tag">BI数据看板</span>
-                        <span class="skill-tag">指标标准化</span>
-                        <span class="skill-tag">数据驱动决策</span>
-                        <span class="skill-tag">算法调优</span>
+                <div class="method-item">
+                    <div class="method-icon">
+                        <i class="fas fa-cogs"></i>
                     </div>
+                    <h4>技术理解</h4>
+                    <p>AIGC · RTC · Agent · RAG · 多模态交互</p>
                 </div>
-
-                <div class="skill-category">
-                    <h3><i class="fas fa-tasks"></i> 产品能力</h3>
-                    <div class="skill-tags">
-                        <span class="skill-tag">产品架构设计</span>
-                        <span class="skill-tag">中台思维</span>
-                        <span class="skill-tag">标准化体系</span>
-                        <span class="skill-tag">Benchmark评测</span>
-                        <span class="skill-tag">交互范式设计</span>
-                        <span class="skill-tag">用户体验优化</span>
-                        <span class="skill-tag">ROI分析</span>
+                <div class="method-item">
+                    <div class="method-icon">
+                        <i class="fas fa-star"></i>
                     </div>
+                    <h4>核心能力</h4>
+                    <p>产品架构 · 指标体系 · 团队协作 · 商业化落地</p>
                 </div>
-
-                <div class="skill-category">
-                    <h3><i class="fas fa-users"></i> 项目与管理</h3>
-                    <div class="skill-tags">
-                        <span class="skill-tag">产研统筹</span>
-                        <span class="skill-tag">跨部门协作</span>
-                        <span class="skill-tag">项目群管理</span>
-                        <span class="skill-tag">敏捷开发</span>
-                        <span class="skill-tag">售前咨询</span>
-                        <span class="skill-tag">招投标</span>
-                        <span class="skill-tag">团队领导</span>
-                    </div>
-                </div>
-
-                <div class="skill-category">
-                    <h3><i class="fas fa-industry"></i> 行业经验</h3>
-                    <div class="skill-tags">
-                        <span class="skill-tag">政务数字化</span>
-                        <span class="skill-tag">房地产</span>
-                        <span class="skill-tag">在线教育</span>
-                        <span class="skill-tag">SCRM营销</span>
-                        <span class="skill-tag">企业服务</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- 作品集 -->
-    <section id="portfolio" class="portfolio">
-        <div class="container">
-            <h2 class="section-title">
-                <span class="title-icon">&lt;portfolio/&gt;</span>
-                作品集
-            </h2>
-            <p class="section-subtitle">展示我的AI产品实践与探索，期待与您交流合作</p>
-            <div class="portfolio-links">
-                <a href="https://www.coze.cn/store/agent/7592219191781195828?bot_id=true" target="_blank" class="portfolio-link featured-portfolio">
-                    <div class="portfolio-icon">
-                        <i class="fas fa-podcast"></i>
-                    </div>
-                    <h3>AI播客POC</h3>
-                    <p>灵犀AI自动化播客生成验证作品</p>
-                    <span class="portfolio-tag">AIGC</span>
-                </a>
-                <a href="张梓琪AI2026.pdf" class="portfolio-link" target="_blank">
-                    <div class="portfolio-icon">
-                        <i class="fas fa-file-pdf"></i>
-                    </div>
-                    <h3>完整简历</h3>
-                    <p>下载PDF版本简历</p>
-                </a>
-                <a href="mailto:372790111@qq.com" class="portfolio-link">
-                    <div class="portfolio-icon">
-                        <i class="fas fa-envelope"></i>
-                    </div>
-                    <h3>联系我</h3>
-                    <p>期待与您交流</p>
-                </a>
             </div>
         </div>
     </section>
 
     <!-- 内容分享 -->
-    <section id="content" class="content-sharing">
-        <div class="container">
-            <h2 class="section-title">
-                <span class="title-icon">&lt;share/&gt;</span>
-                内容分享
-            </h2>
-            <p class="section-subtitle">我在各平台发布的产品思考与技术分享，欢迎交流探讨</p>
-            <div class="content-grid">
-                <a href="https://www.xiaohongshu.com/user/profile/5936839d5e87e754cdabc496" target="_blank" class="content-card">
-                    <div class="content-icon" style="background: linear-gradient(135deg, #fe2c55 0%, #ff5c7c 100%);">
-                        <i class="fab fa-redhat"></i>
-                    </div>
-                    <div class="content-info">
-                        <h3>小红书</h3>
-                        <p>AI产品经理笔记</p>
-                        <span class="content-tag">产品思考</span>
-                    </div>
-                    <div class="content-arrow">
-                        <i class="fas fa-arrow-right"></i>
-                    </div>
-                </a>
+    <section id="content" class="content-section">
+        <h2 class="section-label">Writing</h2>
+        <div class="content-list">
+            <a href="https://www.xiaohongshu.com/user/profile/5936839d5e87e754cdabc496" target="_blank" class="content-item">
+                <span class="content-platform">小红书</span>
+                <span class="content-title">AI产品经理的日常思考</span>
+                <span class="content-meta">产品思考 · 2024</span>
+            </a>
+            <a href="https://www.woshipm.com/u/1142895" target="_blank" class="content-item">
+                <span class="content-platform">人人都是产品经理</span>
+                <span class="content-title">AI产品的技术选型实践</span>
+                <span class="content-meta">方法论 · 2024</span>
+            </a>
+            <a href="https://www.zhihu.com/people/li-jia-tu-47-46" target="_blank" class="content-item">
+                <span class="content-platform">知乎</span>
+                <span class="content-title">关于AI产品落地的思考</span>
+                <span class="content-meta">深度回答 · 2024</span>
+            </a>
+            <a href="https://www.jianshu.com/u/cac8fe6b5adc" target="_blank" class="content-item">
+                <span class="content-platform">简书</span>
+                <span class="content-title">产品与职场随笔</span>
+                <span class="content-meta">随笔 · 2024</span>
+            </a>
+        </div>
+    </section>
 
-                <a href="https://www.woshipm.com/u/1142895" target="_blank" class="content-card">
-                    <div class="content-icon" style="background: linear-gradient(135deg, #fa7a00 0%, #ff9500 100%);">
-                        <i class="fas fa-users"></i>
-                    </div>
-                    <div class="content-info">
-                        <h3>人人都是产品经理</h3>
-                        <p>深度产品分析文章</p>
-                        <span class="content-tag">专栏作者</span>
-                    </div>
-                    <div class="content-arrow">
-                        <i class="fas fa-arrow-right"></i>
-                    </div>
+    <!-- 联系与简历 -->
+    <section id="contact" class="contact-section">
+        <h2 class="section-label">Contact</h2>
+        <div class="contact-content">
+            <p class="contact-text">期待与您交流AI产品的可能性</p>
+            <div class="contact-links">
+                <a href="mailto:372790111@qq.com" class="contact-link">
+                    <i class="fas fa-envelope"></i>
+                    <span>Email</span>
                 </a>
-
-                <a href="https://www.zhihu.com/people/li-jia-tu-47-46" target="_blank" class="content-card">
-                    <div class="content-icon" style="background: linear-gradient(135deg, #0066ff 0%, #1a73e8 100%);">
-                        <i class="fab fa-quora"></i>
-                    </div>
-                    <div class="content-info">
-                        <h3>知乎</h3>
-                        <p>AI与产品话题回答</p>
-                        <span class="content-tag">知识分享</span>
-                    </div>
-                    <div class="content-arrow">
-                        <i class="fas fa-arrow-right"></i>
-                    </div>
+                <a href="tel:13241294350" class="contact-link">
+                    <i class="fas fa-phone"></i>
+                    <span>Phone</span>
                 </a>
-
-                <a href="https://www.jianshu.com/u/cac8fe6b5adc" target="_blank" class="content-card">
-                    <div class="content-icon" style="background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);">
-                        <i class="fas fa-book-open"></i>
-                    </div>
-                    <div class="content-info">
-                        <h3>简书</h3>
-                        <p>产品与职场思考</p>
-                        <span class="content-tag">写作创作</span>
-                    </div>
-                    <div class="content-arrow">
-                        <i class="fas fa-arrow-right"></i>
-                    </div>
-                </a>
-
-                <div class="content-card disabled">
-                    <div class="content-icon" style="background: linear-gradient(135deg, #1a1a1a 0%, #333333 100%);">
-                        <i class="fab fa-tiktok"></i>
-                    </div>
-                    <div class="content-info">
-                        <h3>抖音</h3>
-                        <p>短视频内容创作中</p>
-                        <span class="content-tag coming-soon">即将上线</span>
-                    </div>
-                    <div class="content-arrow">
-                        <i class="fas fa-clock"></i>
-                    </div>
-                </div>
             </div>
+        </div>
+        <!-- 简历下载（角落） -->
+        <div class="resume-corner">
+            <a href="张梓琪AI2026.pdf" target="_blank" class="resume-link">
+                <i class="fas fa-file-pdf"></i>
+                <span>下载简历</span>
+            </a>
         </div>
     </section>
 
     <!-- 页脚 -->
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-logo">&lt;ZZQ /&gt;</div>
-                <div class="footer-social">
-                    <a href="tel:13241294350" title="电话"><i class="fas fa-phone"></i></a>
-                    <a href="mailto:372790111@qq.com" title="邮箱"><i class="fas fa-envelope"></i></a>
-                    <a href="https://github.com" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
-                    <a href="https://linkedin.com" target="_blank" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <p>&copy; 2025 张梓琪. All rights reserved.</p>
-                <p class="footer-tagline">Built with passion for AI & Product</p>
-            </div>
-        </div>
+    <footer class="footer-minimal">
+        <p>© 2025 张梓琪 · AI产品经理</p>
+        <p class="footer-note">Built with focus on AI Product Experience</p>
     </footer>
 
     <script src="script.js"></script>
+    <script src="models.js"></script>
 </body>
 </html>

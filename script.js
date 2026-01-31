@@ -1,57 +1,96 @@
-// ===== 粒子背景效果 - 增强版 =====
+/* ========================================
+   AI产品经理个人网站 - 交互脚本
+   功能：背景粒子动效 + 滚动动画
+======================================== */
+
+// ===== 背景粒子动效 - 白色系 =====
 const canvas = document.getElementById('particles');
 if (canvas) {
     const ctx = canvas.getContext('2d');
     
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
+    // 设置Canvas尺寸
+    function resizeCanvas() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+    }
+    resizeCanvas();
+    window.addEventListener('resize', resizeCanvas);
     
     // 粒子配置
-    const particleCount = window.innerWidth > 768 ? 80 : 40;
-    const connectionDistance = 160;
+    const particleCount = window.innerWidth > 768 ? 60 : 30;
+    const connectionDistance = 150;
+    const mouseDistance = 200;
     
     class Particle {
         constructor() {
+            this.reset();
+        }
+        
+        reset() {
             this.x = Math.random() * canvas.width;
             this.y = Math.random() * canvas.height;
-            this.vx = (Math.random() - 0.5) * 0.6;
-            this.vy = (Math.random() - 0.5) * 0.6;
-            this.radius = Math.random() * 2 + 1;
-            this.baseAlpha = Math.random() * 0.5 + 0.2;
+            this.vx = (Math.random() - 0.5) * 0.3;
+            this.vy = (Math.random() - 0.5) * 0.3;
+            this.radius = Math.random() * 1.5 + 0.5;
+            this.baseAlpha = Math.random() * 0.3 + 0.1;
+            this.alpha = this.baseAlpha;
         }
-    
+        
         update() {
+            // 基础移动
             this.x += this.vx;
             this.y += this.vy;
-    
+            
+            // 边界检测
             if (this.x < 0 || this.x > canvas.width) this.vx *= -1;
             if (this.y < 0 || this.y > canvas.height) this.vy *= -1;
+            
+            // 鼠标交互
+            const dx = mouseX - this.x;
+            const dy = mouseY - this.y;
+            const distance = Math.sqrt(dx * dx + dy * dy);
+            
+            if (distance < mouseDistance) {
+                const force = (mouseDistance - distance) / mouseDistance;
+                this.x -= dx * force * 0.02;
+                this.y -= dy * force * 0.02;
+            }
         }
-    
+        
         draw() {
             ctx.beginPath();
             ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-            ctx.fillStyle = `rgba(59, 130, 246, ${this.baseAlpha})`;
+            ctx.fillStyle = `rgba(150, 150, 150, ${this.alpha})`;
             ctx.fill();
         }
     }
     
+    // 鼠标追踪
+    let mouseX = -1000;
+    let mouseY = -1000;
+    document.addEventListener('mousemove', (e) => {
+        mouseX = e.clientX;
+        mouseY = e.clientY;
+    });
+    
+    // 创建粒子
     const particles = [];
     for (let i = 0; i < particleCount; i++) {
         particles.push(new Particle());
     }
     
+    // 连接线
     function connect() {
         for (let i = 0; i < particles.length; i++) {
             for (let j = i + 1; j < particles.length; j++) {
                 const dx = particles[i].x - particles[j].x;
                 const dy = particles[i].y - particles[j].y;
                 const distance = Math.sqrt(dx * dx + dy * dy);
-    
+                
                 if (distance < connectionDistance) {
-                    const opacity = (1 - distance / connectionDistance) * 0.4;
+                    const opacity = (1 - distance / connectionDistance) * 0.15;
                     ctx.beginPath();
-                    ctx.strokeStyle = `rgba(59, 130, 246, ${opacity})`;
+                    ctx.strokeStyle = `rgba(150, 150, 150, ${opacity})`;
                     ctx.lineWidth = 0.5;
                     ctx.moveTo(particles[i].x, particles[i].y);
                     ctx.lineTo(particles[j].x, particles[j].y);
@@ -61,88 +100,72 @@ if (canvas) {
         }
     }
     
+    // 动画循环
     function animate() {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
-    
+        
         particles.forEach(particle => {
             particle.update();
             particle.draw();
         });
-    
+        
         connect();
         requestAnimationFrame(animate);
     }
-    
     animate();
-    
-    window.addEventListener('resize', () => {
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-    });
 }
 
-// ===== 增强版滚动动画 =====
+// ===== 滚动动画 - 增强版 =====
 const observerOptions = {
     threshold: 0.1,
-    rootMargin: '0px 0px -50px 0px'
+    rootMargin: '0px 0px -100px 0px'
 };
 
 const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
         if (entry.isIntersecting) {
             entry.target.classList.add('visible');
-            entry.target.style.opacity = '1';
-            entry.target.style.transform = 'translateY(0)';
+            
+            // 为子元素添加延迟动画
+            const children = entry.target.querySelectorAll('.case-card, .method-item');
+            children.forEach((child, index) => {
+                setTimeout(() => {
+                    child.classList.add('visible');
+                }, index * 100);
+            });
         }
     });
 }, observerOptions);
 
-// 添加动画的元素
-const animateElements = [
-    '.competency-card',
-    '.timeline-card',
-    '.project-card',
-    '.skill-category',
-    '.portfolio-link',
-    '.content-card'
-];
-
-animateElements.forEach(selector => {
-    document.querySelectorAll(selector).forEach((el, index) => {
-        el.style.opacity = '0';
-        el.style.transform = 'translateY(40px)';
-        el.style.transition = `all 0.6s cubic-bezier(0.4, 0, 0.2, 1) ${index * 0.1}s`;
-        observer.observe(el);
-    });
+// 为所有section添加动画
+document.querySelectorAll('section').forEach(section => {
+    section.classList.add('fade-in');
+    observer.observe(section);
 });
 
-// ===== 平滑滚动增强 =====
+// ===== 平滑滚动 =====
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function (e) {
+    anchor.addEventListener('click', function(e) {
         e.preventDefault();
         const targetId = this.getAttribute('href');
         const target = document.querySelector(targetId);
         if (target) {
-            const headerOffset = 80;
-            const elementPosition = target.getBoundingClientRect().top;
-            const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
-    
+            const offset = 80;
+            const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - offset;
             window.scrollTo({
-                top: offsetPosition,
+                top: targetPosition,
                 behavior: 'smooth'
             });
         }
     });
 });
 
-// ===== 悬浮导航栏滚动高亮 - 优化版 =====
+// ===== 导航高亮 =====
 const sections = document.querySelectorAll('section[id]');
-const floatingNavItems = document.querySelectorAll('.floating-nav-item');
-const navSectionIds = Array.from(floatingNavItems).map(item => item.getAttribute('data-target'));
+const navLinks = document.querySelectorAll('.nav-links a');
 
 function updateActiveNav() {
-    const scrollPosition = window.scrollY + 300;
-    let currentSection = '';
+    const scrollPosition = window.scrollY + 150;
     
     sections.forEach(section => {
         const sectionTop = section.offsetTop;
@@ -150,186 +173,96 @@ function updateActiveNav() {
         const sectionId = section.getAttribute('id');
         
         if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
-            currentSection = sectionId;
-        }
-    });
-    
-    // 滚动到页面底部时激活最后一个
-    if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 100) {
-        currentSection = navSectionIds[navSectionIds.length - 1];
-    }
-    
-    // 滚动到顶部时激活第一个
-    if (window.scrollY < 200) {
-        currentSection = 'hero';
-    }
-    
-    floatingNavItems.forEach(item => {
-        const target = item.getAttribute('data-target');
-        if (target === currentSection) {
-            item.classList.add('active');
-        } else {
-            item.classList.remove('active');
+            navLinks.forEach(link => {
+                 link.classList.remove('active');
+                 if (link.getAttribute('href') === `#${sectionId}`) {
+                     link.classList.add('active');
+                 }
+             });
         }
     });
 }
 
-window.addEventListener('scroll', updateActiveNav, { passive: true });
+window.addEventListener('scroll', updateActiveNav);
 window.addEventListener('load', updateActiveNav);
 
-// ===== 导航栏滚动效果 - 优化版 =====
-const navbar = document.querySelector('.navbar');
-
-window.addEventListener('scroll', () => {
-    if (window.scrollY > 50) {
-        navbar.classList.add('scrolled');
-        navbar.style.background = 'rgba(255, 255, 255, 0.98)';
-    } else {
-        navbar.classList.remove('scrolled');
-        navbar.style.background = 'rgba(255, 255, 255, 0.95)';
-    }
-}, { passive: true });
-
-// ===== 技能标签悬停效果 - 增强版 =====
-document.querySelectorAll('.skill-tag').forEach(tag => {
+// ===== 标签悬停交互 =====
+document.querySelectorAll('.hero-tags .tag').forEach(tag => {
     tag.addEventListener('mouseenter', function() {
-        this.style.transform = 'scale(1.08) translateY(-2px)';
+        this.style.transform = 'scale(1.05)';
     });
-
     tag.addEventListener('mouseleave', function() {
-        this.style.transform = 'scale(1) translateY(0)';
+        this.style.transform = 'scale(1)';
     });
 });
 
-// ===== 项目卡片悬停效果 - 简洁版 =====
-// 3D效果已由CSS处理，这里只添加额外的交互动画
-document.querySelectorAll('.project-card').forEach(card => {
+// ===== 案例卡片悬停效果 =====
+document.querySelectorAll('.case-card').forEach(card => {
     card.addEventListener('mouseenter', function() {
-        const icon = this.querySelector('.project-icon');
-        if (icon) {
-            icon.style.transform = 'scale(1.15) rotate(8deg)';
-        }
+        this.style.transform = 'translateY(-4px)';
     });
-
     card.addEventListener('mouseleave', function() {
-        const icon = this.querySelector('.project-icon');
+        this.style.transform = 'translateY(0)';
+    });
+});
+
+// ===== 统计卡片悬停效果 =====
+document.querySelectorAll('.model-stat-card, .method-item').forEach(card => {
+    card.addEventListener('mouseenter', function() {
+        this.style.transform = 'translateY(-4px)';
+    });
+    card.addEventListener('mouseleave', function() {
+        this.style.transform = 'translateY(0)';
+    });
+});
+
+// ===== 内容项悬停效果 =====
+document.querySelectorAll('.content-item').forEach(item => {
+    item.addEventListener('mouseenter', function() {
+        this.style.paddingLeft = '1rem';
+    });
+    item.addEventListener('mouseleave', function() {
+        this.style.paddingLeft = '0';
+    });
+});
+
+// ===== 联系方式悬停效果 =====
+document.querySelectorAll('.contact-link').forEach(link => {
+    link.addEventListener('mouseenter', function() {
+        const icon = this.querySelector('i');
         if (icon) {
-            icon.style.transform = 'scale(1) rotate(0)';
+            icon.style.transform = 'scale(1.1)';
+        }
+    });
+    link.addEventListener('mouseleave', function() {
+        const icon = this.querySelector('i');
+        if (icon) {
+            icon.style.transform = 'scale(1)';
         }
     });
 });
-
-// ===== 时间线卡片悬停效果 =====
-document.querySelectorAll('.timeline-card').forEach(card => {
-    let animationFrame;
-    
-    card.addEventListener('mousemove', (e) => {
-        cancelAnimationFrame(animationFrame);
-        
-        const rect = card.getBoundingClientRect();
-        const x = e.clientX - rect.left;
-        const y = e.clientY - rect.top;
-        
-        const centerX = rect.width / 2;
-        const centerY = rect.height / 2;
-        
-        const rotateX = (y - centerY) / 30;
-        const rotateY = (centerX - x) / 30;
-        
-        card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-5px)`;
-    });
-
-    card.addEventListener('mouseleave', () => {
-        animationFrame = requestAnimationFrame(() => {
-            card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) translateY(0)';
-        });
-    });
-});
-
-// ===== 能力卡片悬停效果 =====
-document.querySelectorAll('.competency-card').forEach(card => {
-    let animationFrame;
-    
-    card.addEventListener('mousemove', (e) => {
-        cancelAnimationFrame(animationFrame);
-        
-        const rect = card.getBoundingClientRect();
-        const x = e.clientX - rect.left;
-        const y = e.clientY - rect.top;
-        
-        const centerX = rect.width / 2;
-        const centerY = rect.height / 2;
-        
-        const rotateX = (y - centerY) / 35;
-        const rotateY = (centerX - x) / 35;
-        
-        card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-4px)`;
-    });
-
-    card.addEventListener('mouseleave', () => {
-        animationFrame = requestAnimationFrame(() => {
-            card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) translateY(0)';
-        });
-    });
-});
-
-// ===== 下载简历功能 =====
-function downloadResume() {
-    window.open('张梓琪AI2026.pdf', '_blank');
-}
-
-// ===== 控制台彩蛋 - 优化版 =====
-console.log('%c👋 你好，代码探索者！', 'font-size: 20px; color: #3b82f6; font-weight: bold; font-family: system-ui, sans-serif;');
-console.log('%c🚀 这个网站由AI产品经理张梓琪搭建', 'font-size: 14px; color: #64748b; font-family: system-ui, sans-serif;');
-console.log('%c💡 如果你也热爱AI和产品，欢迎联系我！', 'font-size: 14px; color: #8b5cf6; font-family: system-ui, sans-serif;');
-console.log('%c📧 372790111@qq.com', 'font-size: 14px; color: #3b82f6; font-weight: bold; font-family: system-ui, sans-serif;');
-
-// ===== 页面加载完成 =====
-window.addEventListener('load', () => {
-    console.log('✅ 页面加载完成 - 视觉效果已优化');
-    document.body.classList.add('loaded');
-    
-    // 添加页面加载动画
-    document.body.style.opacity = '0';
-    document.body.style.transition = 'opacity 0.5s ease';
-    
-    requestAnimationFrame(() => {
-        document.body.style.opacity = '1';
-    });
-});
-
-// ===== 侧边栏头像悬停效果 =====
-const sidebarAvatar = document.querySelector('.sidebar-avatar');
-if (sidebarAvatar) {
-    sidebarAvatar.addEventListener('mouseenter', function() {
-        this.style.boxShadow = '0 12px 32px rgba(59, 130, 246, 0.45)';
-    });
-    
-    sidebarAvatar.addEventListener('mouseleave', function() {
-        this.style.boxShadow = '0 8px 24px rgba(59, 130, 246, 0.35)';
-    });
-}
 
 // ===== 按钮点击波纹效果 =====
-document.querySelectorAll('.cta-button, .knowledge-link, .portfolio-link').forEach(button => {
+document.querySelectorAll('.hero-cta').forEach(button => {
     button.addEventListener('click', function(e) {
-        const ripple = document.createElement('span');
         const rect = this.getBoundingClientRect();
-        const size = Math.max(rect.width, rect.height);
-        const x = e.clientX - rect.left - size / 2;
-        const y = e.clientY - rect.top - size / 2;
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
         
+        const ripple = document.createElement('span');
         ripple.style.cssText = `
             position: absolute;
-            width: ${size}px;
-            height: ${size}px;
-            left: ${x}px;
-            top: ${y}px;
             background: rgba(255, 255, 255, 0.3);
             border-radius: 50%;
             transform: scale(0);
-            animation: ripple 0.6s ease-out;
+            animation: ripple 0.6s linear;
             pointer-events: none;
+            left: ${x}px;
+            top: ${y}px;
+            width: 100px;
+            height: 100px;
+            margin-left: -50px;
+            margin-top: -50px;
         `;
         
         this.style.position = 'relative';
@@ -341,8 +274,8 @@ document.querySelectorAll('.cta-button, .knowledge-link, .portfolio-link').forEa
 });
 
 // 添加波纹动画样式
-const rippleStyle = document.createElement('style');
-rippleStyle.textContent = `
+const style = document.createElement('style');
+style.textContent = `
     @keyframes ripple {
         to {
             transform: scale(4);
@@ -350,181 +283,238 @@ rippleStyle.textContent = `
         }
     }
 `;
-document.head.appendChild(rippleStyle);
+document.head.appendChild(style);
 
-// ===== 打字效果 - 优化版 =====
-const typingTextElement = document.getElementById('typing-text');
-if (typingTextElement) {
-    const titles = ['AI产品经理', 'AIGC专家', 'RTC架构师', '数据驱动决策'];
-    let titleIndex = 0;
-    let charIndex = 0;
-    let isDeleting = false;
-    let typingSpeed = 100;
+// ===== 页面滚动进度条 =====
+const progressBar = document.createElement('div');
+progressBar.style.cssText = `
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 3px;
+    background: #000;
+    z-index: 9999;
+    transition: width 0.1s ease;
+`;
+document.body.appendChild(progressBar);
 
-    function typeTitle() {
-        const currentTitle = titles[titleIndex];
+window.addEventListener('scroll', () => {
+    const scrollTop = window.scrollY;
+    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    const scrollPercent = (scrollTop / docHeight) * 100;
+    progressBar.style.width = scrollPercent + '%';
+});
 
-        if (isDeleting) {
-            typingTextElement.textContent = currentTitle.substring(0, charIndex - 1);
-            charIndex--;
-            typingSpeed = 50;
-        } else {
-            typingTextElement.textContent = currentTitle.substring(0, charIndex + 1);
-            charIndex++;
-            typingSpeed = 100;
-        }
+// ===== 控制台彩蛋 =====
+console.log('%c👋 你好，代码探索者！', 'font-size: 16px; color: #000; font-weight: bold;');
+console.log('%c这是一个AI产品经理的个人网站', 'font-size: 12px; color: #666;');
+console.log('%c关注产品体验，传递技术价值', 'font-size: 12px; color: #999;');
 
-        if (!isDeleting && charIndex === currentTitle.length) {
-            setTimeout(() => { isDeleting = true; }, 2000);
-        } else if (isDeleting && charIndex === 0) {
-            isDeleting = false;
-            titleIndex = (titleIndex + 1) % titles.length;
-        }
-
-        setTimeout(typeTitle, typingSpeed);
+// ===== 页面加载完成 =====
+window.addEventListener('load', () => {
+    document.body.classList.add('loaded');
+    
+    // Hero 区域入场动画
+    const heroContent = document.querySelector('.hero-content');
+    const heroStats = document.querySelector('.hero-stats');
+    
+    if (heroContent) {
+        heroContent.style.opacity = '0';
+        heroContent.style.transform = 'translateY(30px)';
+        setTimeout(() => {
+            heroContent.style.transition = 'all 0.8s ease';
+            heroContent.style.opacity = '1';
+            heroContent.style.transform = 'translateY(0)';
+        }, 200);
     }
+    
+    if (heroStats) {
+        heroStats.style.opacity = '0';
+        heroStats.style.transform = 'translateY(30px)';
+        setTimeout(() => {
+            heroStats.style.transition = 'all 0.8s ease';
+            heroStats.style.opacity = '1';
+            heroStats.style.transform = 'translateY(0)';
+        }, 400);
+    }
+});
 
-    setTimeout(typeTitle, 1000);
+console.log('✨ 网站已加载完成 - 极致简洁，为AI产品而生');
+
+// ===== 案例卡片滑动器 =====
+class CaseSlider {
+    constructor(container) {
+        this.container = container;
+        this.slider = container.querySelector('.cases-slider');
+        this.wrapper = container.querySelector('.cases-slider-wrapper');
+        this.navButtonsContainer = container.querySelector('.slider-nav-buttons');
+        this.prevBtn = container.querySelector('.slider-prev');
+        this.nextBtn = container.querySelector('.slider-next');
+        this.dotsContainer = container.querySelector('.slider-dots');
+        this.cards = Array.from(this.slider.querySelectorAll('.case-card'));
+        
+        this.currentIndex = 0;
+        this.isDragging = false;
+        this.startPos = 0;
+        this.currentTranslate = 0;
+        this.prevTranslate = 0;
+        this.animationID = 0;
+        
+        this.init();
+    }
+    
+    init() {
+        this.setupDots();
+        this.setupEventListeners();
+        this.updateSlider();
+        this.updateButtons();
+    }
+    
+    setupDots() {
+        const totalSlides = Math.ceil(this.cards.length / this.getCardsPerView());
+        this.dotsContainer.innerHTML = '';
+        
+        for (let i = 0; i < totalSlides; i++) {
+            const dot = document.createElement('div');
+            dot.classList.add('slider-dot');
+            if (i === 0) dot.classList.add('active');
+            dot.addEventListener('click', () => this.goToSlide(i));
+            this.dotsContainer.appendChild(dot);
+        }
+    }
+    
+    getCardsPerView() {
+        const width = window.innerWidth;
+        if (width < 768) return 1;
+        if (width < 1024) return 2;
+        return 3;
+    }
+    
+    getMaxIndex() {
+        const cardsPerView = this.getCardsPerView();
+        return Math.max(0, this.cards.length - cardsPerView);
+    }
+    
+    setupEventListeners() {
+        // 按钮点击
+        this.prevBtn.addEventListener('click', () => this.prev());
+        this.nextBtn.addEventListener('click', () => this.next());
+        
+        // 触摸事件
+        this.slider.addEventListener('touchstart', (e) => this.touchStart(e), { passive: true });
+        this.slider.addEventListener('touchend', () => this.touchEnd());
+        this.slider.addEventListener('touchmove', (e) => this.touchMove(e), { passive: true });
+        
+        // 鼠标拖拽
+        this.slider.addEventListener('mousedown', (e) => this.touchStart(e));
+        this.slider.addEventListener('mouseup', () => this.touchEnd());
+        this.slider.addEventListener('mouseleave', () => this.touchEnd());
+        this.slider.addEventListener('mousemove', (e) => this.touchMove(e));
+        
+        // 窗口大小改变
+        window.addEventListener('resize', () => {
+            this.setupDots();
+            this.updateSlider();
+            this.updateButtons();
+        });
+        
+        // 键盘导航
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowLeft') this.prev();
+            if (e.key === 'ArrowRight') this.next();
+        });
+    }
+    
+    touchStart(event) {
+        this.isDragging = true;
+        this.startPos = this.getPositionX(event);
+        this.animationID = requestAnimationFrame(this.animation.bind(this));
+        this.slider.style.transition = 'none';
+    }
+    
+    touchMove(event) {
+        if (this.isDragging) {
+            const currentPosition = this.getPositionX(event);
+            this.currentTranslate = this.prevTranslate + currentPosition - this.startPos;
+        }
+    }
+    
+    touchEnd() {
+        this.isDragging = false;
+        cancelAnimationFrame(this.animationID);
+        
+        const movedBy = this.currentTranslate - this.prevTranslate;
+        
+        if (movedBy < -50) this.next();
+        if (movedBy > 50) this.prev();
+        
+        this.updateSlider();
+    }
+    
+    getPositionX(event) {
+        return event.type.includes('mouse') ? event.pageX : event.touches[0].clientX;
+    }
+    
+    animation() {
+        this.setSliderPosition();
+        if (this.isDragging) requestAnimationFrame(this.animation.bind(this));
+    }
+    
+    setSliderPosition() {
+        this.slider.style.transform = `translateX(${this.currentTranslate}px)`;
+    }
+    
+    prev() {
+        if (this.currentIndex > 0) {
+            this.currentIndex--;
+            this.updateSlider();
+            this.updateButtons();
+            this.updateDots();
+        }
+    }
+    
+    next() {
+        const maxIndex = this.getMaxIndex();
+        if (this.currentIndex < maxIndex) {
+            this.currentIndex++;
+            this.updateSlider();
+            this.updateButtons();
+            this.updateDots();
+        }
+    }
+    
+    goToSlide(index) {
+        this.currentIndex = index;
+        this.updateSlider();
+        this.updateButtons();
+        this.updateDots();
+    }
+    
+    updateSlider() {
+        const cardWidth = this.cards[0].offsetWidth + 32; // card width + gap
+        this.currentTranslate = -this.currentIndex * cardWidth;
+        this.prevTranslate = this.currentTranslate;
+        this.slider.style.transition = 'transform 0.5s ease';
+        this.setSliderPosition();
+    }
+    
+    updateButtons() {
+        this.prevBtn.disabled = this.currentIndex === 0;
+        this.nextBtn.disabled = this.currentIndex >= this.getMaxIndex();
+    }
+    
+    updateDots() {
+        const cardsPerView = this.getCardsPerView();
+        const activeDotIndex = Math.floor(this.currentIndex / cardsPerView);
+        
+        const dots = this.dotsContainer.querySelectorAll('.slider-dot');
+        dots.forEach((dot, index) => {
+            dot.classList.toggle('active', index === activeDotIndex);
+        });
+    }
 }
 
-// ===== 技能分类悬停效果 =====
-document.querySelectorAll('.skill-category').forEach(category => {
-    category.addEventListener('mouseenter', function() {
-        this.style.boxShadow = '0 12px 32px rgba(59, 130, 246, 0.15)';
-    });
-
-    category.addEventListener('mouseleave', function() {
-        this.style.boxShadow = '';
-    });
+// 初始化所有滑动器
+document.querySelectorAll('.cases-slider-container').forEach(container => {
+    new CaseSlider(container);
 });
-
-// ===== 作品集链接悬停效果 =====
-document.querySelectorAll('.portfolio-link').forEach(link => {
-    link.addEventListener('mouseenter', function() {
-        const icon = this.querySelector('.portfolio-icon');
-        if (icon) {
-            icon.style.transform = 'scale(1.1) rotate(5deg)';
-        }
-    });
-
-    link.addEventListener('mouseleave', function() {
-        const icon = this.querySelector('.portfolio-icon');
-        if (icon) {
-            icon.style.transform = 'scale(1) rotate(0)';
-        }
-    });
-});
-
-// ===== 内容卡片悬停效果 =====
-document.querySelectorAll('.content-card:not(.disabled)').forEach(card => {
-    card.addEventListener('mouseenter', function() {
-        const icon = this.querySelector('.content-icon');
-        if (icon) {
-            icon.style.transform = 'scale(1.15) rotate(8deg)';
-        }
-    });
-
-    card.addEventListener('mouseleave', function() {
-        const icon = this.querySelector('.content-icon');
-        if (icon) {
-            icon.style.transform = 'scale(1) rotate(0)';
-        }
-    });
-});
-
-// ===== 侧边标签悬停效果 =====
-document.querySelectorAll('.sidebar-tag').forEach(tag => {
-    tag.addEventListener('mouseenter', function() {
-        this.style.transform = 'translateY(-3px) scale(1.02)';
-    });
-
-    tag.addEventListener('mouseleave', function() {
-        this.style.transform = 'translateY(0) scale(1)';
-    });
-});
-
-// ===== 联系人项目悬停效果 =====
-document.querySelectorAll('.contact-item').forEach(item => {
-    item.addEventListener('mouseenter', function() {
-        this.style.paddingLeft = '1rem';
-    });
-
-    item.addEventListener('mouseleave', function() {
-        this.style.paddingLeft = '0.8rem';
-    });
-});
-
-// ===== 时间线卡片悬停指示器 =====
-document.querySelectorAll('.timeline-card.clickable').forEach(card => {
-    card.addEventListener('mouseenter', function() {
-        const dot = this.querySelector('.timeline-dot');
-        if (dot) {
-            dot.style.transform = 'translateX(-50%) scale(1.3)';
-            dot.style.boxShadow = '0 0 0 4px var(--bg-secondary), 0 4px 16px rgba(59, 130, 246, 0.4)';
-        }
-    });
-
-    card.addEventListener('mouseleave', function() {
-        const dot = this.querySelector('.timeline-dot');
-        if (dot) {
-            dot.style.transform = 'translateX(-50%) scale(1)';
-            dot.style.boxShadow = '';
-        }
-    });
-});
-
-// ===== 项目亮点悬停效果 =====
-document.querySelectorAll('.highlight').forEach(highlight => {
-    highlight.addEventListener('mouseenter', function() {
-        const icon = this.querySelector('i');
-        if (icon) {
-            icon.style.transform = 'scale(1.2)';
-            icon.style.transition = 'transform 0.3s ease';
-        }
-    });
-
-    highlight.addEventListener('mouseleave', function() {
-        const icon = this.querySelector('i');
-        if (icon) {
-            icon.style.transform = 'scale(1)';
-        }
-    });
-});
-
-// ===== 项目标签悬停效果 =====
-document.querySelectorAll('.project-tags span').forEach(tag => {
-    tag.addEventListener('mouseenter', function() {
-        this.style.transform = 'translateY(-2px)';
-        this.style.boxShadow = '0 4px 12px rgba(59, 130, 246, 0.2)';
-    });
-
-    tag.addEventListener('mouseleave', function() {
-        this.style.transform = 'translateY(0)';
-        this.style.boxShadow = '';
-    });
-});
-
-// ===== 页脚社交图标悬停效果 =====
-document.querySelectorAll('.footer-social a').forEach(icon => {
-    icon.addEventListener('mouseenter', function() {
-        this.style.transform = 'translateY(-4px) rotate(3deg)';
-    });
-
-    icon.addEventListener('mouseleave', function() {
-        this.style.transform = 'translateY(0) rotate(0)';
-    });
-});
-
-// ===== 导航知识库链接悬停效果 =====
-const knowledgeLink = document.querySelector('.knowledge-link');
-if (knowledgeLink) {
-    knowledgeLink.addEventListener('mouseenter', function() {
-        this.style.transform = 'translateY(-3px) scale(1.02)';
-    });
-
-    knowledgeLink.addEventListener('mouseleave', function() {
-        this.style.transform = 'translateY(0) scale(1)';
-    });
-}
-
-console.log('🎨 所有视觉效果优化已完成！');
